@@ -14,8 +14,7 @@ export default function Chat() {
         <div className='flex flex-1 flex-col gap-2'>
             {messages.map((message: Message) => (
                 <div key={message.id}>
-                    {message.role === "user" ? "Demandé: " : "Réponse: "}
-                    {message.content}
+                    {message.role === "assistant" ? message.content : ""}
                 </div>
             ))}
         </div>

@@ -1,8 +1,11 @@
+import Link from 'next/link'
+import React from 'react'
 
 export default function Home() {
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>Salut</h1>
-    </main>
+    <div className='m-auto mt-4 flex max-w-md flex-col'>
+      <Link href="/chat">CocktAIls</Link>   
+    </div>
   )
 }
