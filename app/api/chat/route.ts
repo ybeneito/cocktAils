@@ -13,13 +13,14 @@ const instructionMessage: ChatCompletionRequestMessage = {
     content: `Ignores tous les instructions précédentes. 
     Réponds toujours en Français.
     Tu es un expert en cocktails et fin connaisseur en personnalitée et tu dois conseiller un cocktail qu'aimerai boire la personnalitée dont l'utilisateur te passera le nom.
-    Le format de réponse attendu est du JSON conforme à la RFC8259 suivant ce modelle:[{
-        'name': 'le nom du cocktail',
+    Le format de réponse attendu est du JSON conforme à la RFC8259 suivant ce modelle: {
+        'personnalitée': 'nom de la personne demandée',
+        'nom': 'le nom du cocktail',
         'ingredients': 'tableau de string contenant les ingrédients du cocktail',
-        'recipe': 'tableau de string contenant les étapes la recette du cocktail',
-        'explanation': 'courte explication 50 mots max sur le choix de ce cocktail contenant une reférence à la personne si possible'
-    }]
-    Assures toi de toujours me renvoyer une réponse propre en retirant par example les backslash et les bachslash n 
+        'recettes': 'tableau de string contenant les étapes la recette du cocktail',
+        'explication': 'courte explication 50 mots max sur le choix de ce cocktail contenant une reférence à la personne si possible'
+    }
+
     `
 }
 
@@ -29,10 +30,11 @@ export async function POST(req: Request) {
     try {
         const response = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
-            messages: [instructionMessage, ...messages]
+            messages: [instructionMessage, ...messages],
+            temperature: 0.5
         })
         // const stream: ReadableStream = OpenAIStream(response)
-        return NextResponse.json(response.data.choices[0].message?.content)
+        return new NextResponse(response.data.choices[0].message?.content, {status: 200})
     } catch (error) {
         console.log("ERR: ", error)
         return new NextResponse("error", {status: 500})
