@@ -6,8 +6,6 @@ const config = new Configuration({
     apiKey: process.env.OPENAI_API_KEY
 })
 
-export const runtime = "edge"
-
 const openai = new OpenAIApi(config)
 
 const instructionMessage: ChatCompletionRequestMessage = {
