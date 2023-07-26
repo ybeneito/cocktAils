@@ -6,6 +6,8 @@ const config = new Configuration({
     apiKey: process.env.OPENAI_API_KEY
 })
 
+export const runtime = "edge"
+
 const openai = new OpenAIApi(config)
 
 const instructionMessage: ChatCompletionRequestMessage = {
@@ -20,7 +22,6 @@ const instructionMessage: ChatCompletionRequestMessage = {
         'recettes': 'tableau de string contenant les étapes la recette du cocktail',
         'explication': 'courte explication 50 mots max sur le choix de ce cocktail contenant une reférence à la personne si possible'
     }
-
     `
 }
 
